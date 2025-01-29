@@ -1,2 +1,25 @@
 <h1>Contacts</h1>
-<app-data-grid [loading]="loading" [headers]="getHeaders()" [data]="contacts" [actions]="actions"></app-data-grid>
+<mat-form-field>
+  <mat-label>Search</mat-label>
+  <input matInput (input)="applyFilter($event)" placeholder="Search contacts">
+</mat-form-field>
+
+<mat-table [dataSource]="contacts">
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+    <mat-cell *matCellDef="let contact">{{ contact.name }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="email">
+    <mat-header-cell *matHeaderCellDef>Email</mat-header-cell>
+    <mat-cell *matCellDef="let contact">{{ contact.email }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="phone">
+    <mat-header-cell *matHeaderCellDef>Phone</mat-header-cell>
+    <mat-cell *matCellDef="let contact">{{ contact.phone }}</mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="['name', 'email', 'phone']"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: ['name', 'email', 'phone']"></mat-row>
+</mat-table>
